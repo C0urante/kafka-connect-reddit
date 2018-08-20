@@ -1,0 +1,17 @@
+# Intellij
+.idea
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings
+.metadata
+
+# Build files
+target/
+
+# Mac OS
+.DS_STORE

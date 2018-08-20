@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.c0urante</groupId>
+    <artifactId>kafka-connect-reddit</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Kafka Connect Reddit</name>
+    <description>
+       A Kafka Connect Reddit connector for reading data from Reddit into Kafka.
+    </description>
+
+    <repositories>
+        <repository>
+            <id>Maven Central</id>
+            <url>https://repo.apache.maven.org</url>
+        </repository>
+
+        <repository>
+            <id>Bintray jCenter</id>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
+    <licenses>
+        <license>
+            <name>DWTFPL Version 2</name>
+            <url>http://www.wtfpl.net/txt/copying/</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/C0urante/kafka-connect-reddit.git</connection>
+        <developerConnection>scm:git:git@github.com:C0urante/kafka-connect-reddit.git</developerConnection>
+        <url>https://github.com/C0urante/kafka-connect-reddit</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <jraw.version>1.1.0</jraw.version>
+        <junit.version>4.12</junit.version>
+        <kafka.version>2.0.0</kafka.version>
+        <kafka.connect.maven.plugin.version>0.11.1</kafka.connect.maven.plugin.version>
+        <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+        <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
+        <moshi.version>1.6.0</moshi.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>1.7.9</slf4j.version>
+
+        <docs.dir>${project.basedir}/docs</docs.dir>
+        <docs.config.file>source-connector-config</docs.config.file>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.squareup.moshi</groupId>
+            <artifactId>moshi</artifactId>
+            <version>${moshi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.dean.jraw</groupId>
+            <artifactId>JRAW</artifactId>
+            <version>${jraw.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-api</artifactId>
+            <version>${kafka.version}</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-connect-maven-plugin</artifactId>
+                <version>${kafka.connect.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>Confluent Hub package</id>
+                        <goals>
+                            <goal>kafka-connect</goal>
+                        </goals>
+                        <configuration>
+                            <ownerUsername>C0urante</ownerUsername>
+                            <ownerName>Chris Egerton</ownerName>
+                            <ownerType>user</ownerType>
+                            <componentTypes>
+                                <componentType>source</componentType>
+                            </componentTypes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>docs</id>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>connect-api</artifactId>
+                    <version>${kafka.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>${slf4j.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>source-config-rst</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>com.github.c0urante.kafka.connect.reddit.RedditSourceConnectorConfig</mainClass>
+                                    <arguments>
+                                        <argument>${docs.dir}/${docs.config.file}.rst</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>source-config-rst-to-md</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>pandoc</executable>
+                                    <arguments>
+                                        <argument>${docs.dir}/${docs.config.file}.rst</argument>
+                                        <argument>-f</argument>
+                                        <argument>rst</argument>
+                                        <argument>-t</argument>
+                                        <argument>markdown_github</argument>
+                                        <argument>-o</argument>
+                                        <argument>${docs.dir}/${docs.config.file}.md</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>${maven.clean.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                                <configuration>
+                                    <filesets>
+                                        <fileset>
+                                            <directory>${docs.dir}</directory>
+                                            <includes>
+                                                <include>${docs.config.file}.rst</include>
+                                                <include>${docs.config.file}.md</include>
+                                            </includes>
+                                        </fileset>
+                                    </filesets>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
