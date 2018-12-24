@@ -5,7 +5,7 @@
      as published by Sam Hocevar. See the LICENSE file for more details.
 */
 
-package com.github.c0urante.kafka.connect.reddit.Stream;
+package com.github.c0urante.kafka.connect.reddit.stream;
 
 import com.github.c0urante.kafka.connect.reddit.version.Version;
 import net.dean.jraw.ApiException;

@@ -7,7 +7,7 @@
 
 package com.github.c0urante.kafka.connect.reddit;
 
-import com.github.c0urante.kafka.connect.reddit.Stream.Reddit;
+import com.github.c0urante.kafka.connect.reddit.stream.Reddit;
 import com.github.c0urante.kafka.connect.reddit.version.Version;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;

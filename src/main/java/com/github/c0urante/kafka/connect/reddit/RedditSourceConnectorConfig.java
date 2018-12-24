@@ -7,7 +7,7 @@
 
 package com.github.c0urante.kafka.connect.reddit;
 
-import com.github.c0urante.kafka.connect.reddit.Stream.Reddit;
+import com.github.c0urante.kafka.connect.reddit.stream.Reddit;
 import net.dean.jraw.pagination.Paginator;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigDef;

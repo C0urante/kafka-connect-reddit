@@ -7,7 +7,7 @@
 
 package com.github.c0urante.kafka.connect.reddit;
 
-import com.github.c0urante.kafka.connect.reddit.Stream.Reddit;
+import com.github.c0urante.kafka.connect.reddit.stream.Reddit;
 import com.github.c0urante.kafka.connect.reddit.model.CommentSourceRecordConverter;
 import com.github.c0urante.kafka.connect.reddit.model.PostSourceRecordConverter;
 import com.github.c0urante.kafka.connect.reddit.model.SourceRecordConverter;
