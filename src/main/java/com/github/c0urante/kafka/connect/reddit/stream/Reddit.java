@@ -83,7 +83,7 @@ public class Reddit {
             case 1:
                 return reddit.subreddit(subreddits.get(0));
             case 2:
-                return reddit.subreddits(subreddits.get(0), subreddits.get(0));
+                return reddit.subreddits(subreddits.get(0), subreddits.get(1));
             default: {
                 String[] others = subreddits.subList(2, subreddits.size()).toArray(new String[0]);
                 return reddit.subreddits(subreddits.get(0), subreddits.get(1), others);
