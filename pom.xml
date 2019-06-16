@@ -113,30 +113,6 @@
                             <goal>kafka-connect</goal>
                         </goals>
                         <configuration>
-                            <ownerUsername>C0urante</ownerUsername>
-                            <ownerName>Chris Egerton</ownerName>
-                            <ownerType>user</ownerType>
-                            <componentTypes>
-                                <componentType>source</componentType>
-                            </componentTypes>
-                            <confluentControlCenterIntegration>true</confluentControlCenterIntegration>
-                            <documentationUrl>${project.scm.url}</documentationUrl>
-                            <kafkaConnectApi>true</kafkaConnectApi>
-                            <singleMessageTransforms>true</singleMessageTransforms>
-                            <sourceUrl>${project.scm.url}</sourceUrl>
-                            <supportUrl>${project.scm.url}/issues}</supportUrl>
-                            <supportSummary>
-                                This is an open-source project supported by the community and
-                                maintained on a best-effort basis by the creator.
-                            </supportSummary>
-                            <tags>
-                                <tag>reddit</tag>
-                                <tag>stream</tag>
-                                <tag>live</tag>
-                                <tag>jraw</tag>
-                                <tag>social</tag>
-                                <tag>network</tag>
-                            </tags>
                             <description><![CDATA[
                                 The source connector consumes posts and comments from Reddit in real time. It's
                                 possible to read comments from one collection of subreddits and posts from a different
@@ -150,7 +126,49 @@
                                 posts and comments; many thanks go to
                                 <a href="https://github.com/mattbdean">Matt Dean</a> for creating that excellent
                                 library.
+
+                                This connector is currently intended for development and entertainment purposes only and
+                                is not recommended or endorsed for production use cases.
                             ]]></description>
+                            <documentationUrl>${project.scm.url}</documentationUrl>
+                            <sourceUrl>${project.scm.url}</sourceUrl>
+                            <logo>${project.basedir}/logos/reddit.png</logo>
+
+                            <ownerUsername>C0urante</ownerUsername>
+                            <ownerName>Chris Egerton</ownerName>
+                            <ownerType>user</ownerType>
+                            <ownerLogo>${project.basedir}/logos/aku.jpeg</ownerLogo>
+
+                            <supportProviderName>Open Source Community</supportProviderName>
+                            <supportUrl>${project.scm.url}/issues</supportUrl>
+                            <supportSummary>
+                                This is an open-source project supported and maintained on a best-effort by the
+                                community and its creator.
+                            </supportSummary>
+                            <supportLogo>${project.basedir}/logos/github.png</supportLogo>
+
+                            <componentTypes>
+                                <componentType>source</componentType>
+                            </componentTypes>
+
+                            <confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+
+                            <licenses>
+                                <license>
+                                    <name>DWTFPL Version 2</name>
+                                    <url>http://www.wtfpl.net/txt/copying/</url>
+                                    <logo>${project.basedir}/logos/wtfpl.png</logo>
+                                </license>
+                            </licenses>
+
+                            <tags>
+                                <tag>reddit</tag>
+                                <tag>stream</tag>
+                                <tag>live</tag>
+                                <tag>jraw</tag>
+                                <tag>social</tag>
+                                <tag>network</tag>
+                            </tags>
                         </configuration>
                     </execution>
                 </executions>
