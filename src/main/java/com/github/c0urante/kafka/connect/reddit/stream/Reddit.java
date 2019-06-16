@@ -15,10 +15,8 @@ import net.dean.jraw.http.UserAgent;
 import net.dean.jraw.models.Comment;
 import net.dean.jraw.models.Submission;
 import net.dean.jraw.models.SubredditSort;
-import net.dean.jraw.models.UniquelyIdentifiable;
 import net.dean.jraw.oauth.Credentials;
 import net.dean.jraw.oauth.OAuthHelper;
-import net.dean.jraw.pagination.Paginator;
 import net.dean.jraw.pagination.Stream;
 import net.dean.jraw.references.SubredditReference;
 
@@ -41,12 +39,16 @@ public class Reddit {
 
     public Reddit(String oAuthClientId, int limit, boolean logHttpRequests) {
         this.limit = limit;
+        this.reddit = createClient(oAuthClientId, logHttpRequests);
+    }
 
-        reddit = OAuthHelper.automatic(
+    static RedditClient createClient(String oAuthClientId, boolean logHttpRequests) {
+        RedditClient result = OAuthHelper.automatic(
                 new OkHttpNetworkAdapter(userAgent),
                 Credentials.userlessApp(oAuthClientId, DEVICE_ID)
         );
-        reddit.setLogHttp(logHttpRequests);
+        result.setLogHttp(logHttpRequests);
+        return result;
     }
 
     public boolean canAccessSubreddit(String subreddit) {
@@ -60,20 +62,16 @@ public class Reddit {
 
     public Stream<Comment> comments(List<String> subreddits) {
         SubredditReference multireddit = subreddits(subreddits);
-        return multireddit != null
-                ? stream(multireddit.comments().limit(limit))
+        return multireddit != null ?
+                multireddit.comments().limit(limit).build().stream()
                 : null;
     }
 
     public Stream<Submission> posts(List<String> subreddits) {
         SubredditReference multireddit = subreddits(subreddits);
-        return multireddit != null
-                ? stream(multireddit.posts().limit(limit).sorting(SubredditSort.NEW))
+        return multireddit != null ?
+                multireddit.posts().limit(limit).sorting(SubredditSort.NEW).build().stream()
                 : null;
-    }
-
-    private <Thing extends UniquelyIdentifiable> Stream<Thing> stream(Paginator.Builder<Thing> builder) {
-        return builder.build().stream();
     }
 
     private SubredditReference subreddits(List<String> subreddits) {

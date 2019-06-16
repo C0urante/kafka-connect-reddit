@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class RedditSourceConnectorConfig extends AbstractConfig {
 
-    private static final String OAUTH_CLIENT_ID = "_7fRyo80H7qdFA";
+    public static final String OAUTH_CLIENT_ID = "_7fRyo80H7qdFA";
 
 
     public static final String COMMENTS_SUBREDDITS_CONFIG = "comments.subreddits";

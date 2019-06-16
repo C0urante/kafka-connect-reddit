@@ -41,4 +41,3 @@ Whether to log HTTP requests made to Reddit
 -   Default: false
 -   Importance: low
 
-

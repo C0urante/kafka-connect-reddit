@@ -158,8 +158,6 @@ a PR without filing an issue first and tag @C0urante for review.
 
 ## TODO
 
-- [ ] Cleanup/decomposition in the [RedditSourceTask](src/main/java/com/github/c0urante/kafka/connect/reddit/RedditSourceTask.java) code
-- [ ] Add more metadata to configuration for `kafka-connect-maven-plugin`
 - [ ] Publish to [Confluent Hub]
 - [ ] Support reverse-chronological consumption
 - [ ] Sink connector

@@ -119,6 +119,38 @@
                             <componentTypes>
                                 <componentType>source</componentType>
                             </componentTypes>
+                            <confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+                            <documentationUrl>${project.scm.url}</documentationUrl>
+                            <kafkaConnectApi>true</kafkaConnectApi>
+                            <singleMessageTransforms>true</singleMessageTransforms>
+                            <sourceUrl>${project.scm.url}</sourceUrl>
+                            <supportUrl>${project.scm.url}/issues}</supportUrl>
+                            <supportSummary>
+                                This is an open-source project supported by the community and
+                                maintained on a best-effort basis by the creator.
+                            </supportSummary>
+                            <tags>
+                                <tag>reddit</tag>
+                                <tag>stream</tag>
+                                <tag>live</tag>
+                                <tag>jraw</tag>
+                                <tag>social</tag>
+                                <tag>network</tag>
+                            </tags>
+                            <description><![CDATA[
+                                The source connector consumes posts and comments from Reddit in real time. It's
+                                possible to read comments from one collection of subreddits and posts from a different
+                                collection, and <a href="https://www.reddit.com/r/all/">r/all</a> can be read from for
+                                either.
+
+                                Separate topics are used for posts and comments; they default to reddit-posts and
+                                reddit-comments respectively but can be configured differently if necessary.
+
+                                <a href="https://github.com/mattbdean/jraw">JRAW</a> is used to continuously stream new
+                                posts and comments; many thanks go to
+                                <a href="https://github.com/mattbdean">Matt Dean</a> for creating that excellent
+                                library.
+                            ]]></description>
                         </configuration>
                     </execution>
                 </executions>
