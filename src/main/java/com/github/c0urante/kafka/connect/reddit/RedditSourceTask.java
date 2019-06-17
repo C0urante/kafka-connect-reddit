@@ -23,6 +23,7 @@ import org.apache.kafka.connect.source.SourceTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -56,6 +57,8 @@ public class RedditSourceTask extends SourceTask {
                 context.offsetStorageReader().offsets(postPartitions);
         Map<Map<String, Object>, Map<String, Object>> commentOffsets =
                 context.offsetStorageReader().offsets(commentPartitions);
+
+        streamReaders = new ArrayList<>();
 
         if (postsStream != null) {
             PostsStreamReader postsReader = new PostsStreamReader(
