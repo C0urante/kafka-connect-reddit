@@ -70,6 +70,10 @@ public class RedditSourceConnector extends SourceConnector {
 
         int task = 0;
         for (List<String> postSubreddits : partitionedPostSubreddits) {
+            if (postSubreddits.isEmpty()) {
+                continue;
+            }
+
             result.get(task).put(
                     RedditSourceConnectorConfig.POSTS_SUBREDDITS_CONFIG,
                     String.join(",", postSubreddits)
@@ -77,6 +81,10 @@ public class RedditSourceConnector extends SourceConnector {
             task = (task + 1) % numTasks;
         }
         for (List<String> commentSubreddits : partitionedCommentSubreddits) {
+            if (commentSubreddits.isEmpty()) {
+                continue;
+            }
+
             result.get(task).put(
                     RedditSourceConnectorConfig.COMMENTS_SUBREDDITS_CONFIG,
                     String.join(",", commentSubreddits)
