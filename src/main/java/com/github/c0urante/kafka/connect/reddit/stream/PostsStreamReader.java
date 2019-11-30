@@ -15,6 +15,7 @@ import org.apache.kafka.connect.source.SourceRecord;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class PostsStreamReader extends StreamReader<Submission> {
 
@@ -23,10 +24,11 @@ public class PostsStreamReader extends StreamReader<Submission> {
     public PostsStreamReader(
             Map<Map<String, Object>, Map<String, Object>> offsets,
             Stream<Submission> stream,
+            Consumer<Throwable> onError,
             List<String> subreddits,
             String topic
     ) {
-        super(offsets, stream, "posts", subreddits);
+        super(offsets, stream, onError, "posts", subreddits);
         this.recordConverter = new PostSourceRecordConverter(topic);
     }
 
