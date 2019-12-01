@@ -15,6 +15,7 @@ import org.apache.kafka.connect.source.SourceRecord;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class CommentsStreamReader extends StreamReader<Comment> {
 
@@ -23,10 +24,11 @@ public class CommentsStreamReader extends StreamReader<Comment> {
     public CommentsStreamReader(
             Map<Map<String, Object>, Map<String, Object>> offsets,
             Stream<Comment> stream,
+            Consumer<Throwable> onError,
             List<String> subreddits,
             String topic
     ) {
-        super(offsets, stream, "comment", subreddits);
+        super(offsets, stream, onError, "comment", subreddits);
         this.recordConverter = new CommentSourceRecordConverter(topic);
     }
 
