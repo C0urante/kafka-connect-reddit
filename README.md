@@ -4,6 +4,7 @@ A source connector for reading [Reddit] posts and comments into
 [Apache Kafka], via the [Kafka Connect] framework
 
 1. [Overview](#overview)
+1. [Installation](#installation)
 1. [Configuration](#configuration)
 1. [Quickstart](#quickstart)
 1. [Offset Tracking](#offset-tracking)
@@ -25,6 +26,26 @@ Separate topics are used for posts and comments.
 [JRAW] is used to continuously stream new posts and comments; many
 thanks go to [Matt Dean](https://github.com/mattbdean) for writing such
 an excellent library.
+
+## Installation
+
+
+### Via Confluent Hub
+
+The connector is available on
+[Confluent Hub](https://www.confluent.io/hub/C0urante/kafka-connect-reddit). Instructions on how to
+download it and install it onto your Kafka Connect worker(s) can be found there.
+
+### Local build
+
+The connector can be built locally by running the following command:
+
+```bash
+mvn package
+```
+
+and then copying and unzipping the zip archive generated in the `target/components/packages`
+directory onto the plugin path or classpath for your Kafka Connect worker(s).
 
 ## Configuration
 
@@ -158,7 +179,7 @@ a PR without filing an issue first and tag @C0urante for review.
 
 ## TODO
 
-- [ ] Publish to [Confluent Hub]
+- [x] Publish to [Confluent Hub]
 - [ ] Support reverse-chronological consumption
 - [ ] Sink connector
 
