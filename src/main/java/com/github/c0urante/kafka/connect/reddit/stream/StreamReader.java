@@ -15,18 +15,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 public abstract class StreamReader<Thing extends UniquelyIdentifiable> implements Runnable, Closeable {
     private static final Logger log = LoggerFactory.getLogger(StreamReader.class);
 
     private final Map<Map<String, Object>, Map<String, Object>> offsets;
     private final Stream<Thing> stream;
+    private final Consumer<Throwable> onError;
     private final String asString;
 
     private final AtomicBoolean running;
@@ -42,11 +45,13 @@ public abstract class StreamReader<Thing extends UniquelyIdentifiable> implement
     public StreamReader(
             Map<Map<String, Object>, Map<String, Object>> offsets,
             Stream<Thing> stream,
+            Consumer<Throwable> onError,
             String thingType,
             List<String> subreddits
     ) {
         this.offsets = offsets;
         this.stream = stream;
+        this.onError = onError;
         this.asString = String.format(
                 "%s stream reader (subreddits: %s)",
                 thingType,
@@ -77,8 +82,25 @@ public abstract class StreamReader<Thing extends UniquelyIdentifiable> implement
                     }
                 }
             } catch (Throwable t) {
-                log.error("Error while reading from {}", this, t);
-                throw t;
+                // The Reddit client library used here is written in Kotlin, which doesn't have
+                // checked exceptions. So even though the call to stream::next in retrieveNextThing
+                // may throw an InterruptedException or an InterruptedIOException, the Java compiler
+                // won't let us try to catch that exception type. As a result, we settle for this
+                // instanceof hack.
+                if (!running.get() &&
+                    (t instanceof InterruptedException || t instanceof InterruptedIOException)
+                ) {
+                    log.debug(
+                        "Interrupted while reading from {}. "
+                            + "This is expected as the reader is in the process of closing.",
+                        this,
+                        t
+                    );
+                } else {
+                    log.error("Error while reading from {}", this, t);
+                    onError.accept(t);
+                }
+                break;
             }
         }
     }
