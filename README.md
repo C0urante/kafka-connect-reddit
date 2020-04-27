@@ -52,7 +52,7 @@ directory onto the plugin path or classpath for your Kafka Connect worker(s).
 To run this in standalone-mode via a docker container (this brings up the environment and the connector in a standalone worker):
 
 ```bash
-#Build the project 
+# Build the project 
 mvn clean package
 
 # Build the docker container 
