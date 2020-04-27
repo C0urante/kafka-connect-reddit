@@ -215,7 +215,7 @@ a PR without filing an issue first and tag @C0urante for review.
 - [x] Publish to [Confluent Hub]
 - [ ] Support reverse-chronological consumption
 - [ ] Sink connector
-- [ ] (In Docker) Replace variables in the prioperties files rather than append 
+- [ ] (In Docker) Replace variables in the properties files rather than append 
 
 PRs welcome and encouraged!
 
