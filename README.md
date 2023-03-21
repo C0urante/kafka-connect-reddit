@@ -53,6 +53,14 @@ directory onto the plugin path or classpath for your Kafka Connect worker(s).
 
 [Example](config/kafka-connect-reddit-source.properties)
 
+### Connector Class
+`com.github.c0urante.kafka.connect.reddit.RedditSourceConnector`
+
+### Connection Endpoints
+If you need to whitelist ingress/egress endpoints, include:
+
+`www.reddit.com:443`
+
 ## Quickstart
 
 Assumptions:
