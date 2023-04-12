@@ -29,13 +29,6 @@ an excellent library.
 
 ## Installation
 
-
-### Via Confluent Hub
-
-The connector is available on
-[Confluent Hub](https://www.confluent.io/hub/C0urante/kafka-connect-reddit). Instructions on how to
-download it and install it onto your Kafka Connect worker(s) can be found there.
-
 ### Local build
 
 The connector can be built locally by running the following command:
@@ -179,7 +172,6 @@ a PR without filing an issue first and tag @C0urante for review.
 
 ## TODO
 
-- [x] Publish to [Confluent Hub]
 - [ ] Support reverse-chronological consumption
 - [ ] Sink connector
 
@@ -190,4 +182,3 @@ PRs welcome and encouraged!
 [Reddit]: https://www.redditinc.com/
 [JRAW]: https://github.com/mattbdean/JRAW
 [JsonConverter]: https://github.com/apache/kafka/blob/2.0.0/connect/json/src/main/java/org/apache/kafka/connect/json/JsonConverter.java
-[Confluent Hub]: https://confluent.io/hub
