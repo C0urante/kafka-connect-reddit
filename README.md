@@ -40,6 +40,37 @@ mvn package
 and then copying and unzipping the zip archive generated in the `target/components/packages`
 directory onto the plugin path or classpath for your Kafka Connect worker(s).
 
+## Running standalone in docker
+
+To run this in standalone-mode via a docker container (this brings up the environment and the connector in a standalone worker):
+
+```bash
+# Build the project 
+mvn clean package
+
+# Build the docker container 
+docker build -t redditconnector .
+
+# Run 
+docker run --env-file reddit.env -it redditconnector
+
+```
+
+The environment file that was used looks like this: (To configure the subreddit, comment location, and where your broker can be reached)
+
+```bash
+SUBREDDIT=chicagohelicopters
+COMMENTS_SUBREDDIT=chicagohelicopters
+KAFKA_SERVER=<kafka hostname>:9092
+```
+
+Note: Change the kafka host name. If the variable in the file or docker run arguements is not present then it will default to the following values:
+
+ * SUBREDDIT - all
+ * COMMENTS_SUBREDDIT - all
+ * KAFKA_SERVER - localhost:9092
+
+
 ## Configuration
 
 [Docs](docs/source-connector-config.md)
@@ -66,6 +97,8 @@ kafka-topics --zookeeper localhost:2181 --create --topic reddit-posts --partitio
 # Run the connector
 connect-standalone config/connect-standalone.properties config/kafka-connect-reddit-source.properties
 ```
+
+  
 
 ## Offset Tracking
 
@@ -174,6 +207,7 @@ a PR without filing an issue first and tag @C0urante for review.
 
 - [ ] Support reverse-chronological consumption
 - [ ] Sink connector
+- [ ] (In Docker) Replace variables in the properties files rather than append 
 
 PRs welcome and encouraged!
 
